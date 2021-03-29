@@ -1,0 +1,28 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model AddWireSetModel
+@{
+    <p>
+        Add motor
+    </p>
+    <form asp-controller="Admin" asp-action="Wireset" method="post">
+        Price:  <input min="1" type="number" asp-for="Price" /> <br />
+        <span asp-validation-for="Price" class="text-danger"></span><br />
+        Model: <input asp-for="Model" /><br />
+        <span asp-validation-for="Model" class="text-danger"></span><br />
+        Company: @Html.DropDownListFor(m => m.CompanyID,
+new SelectList(Model.Companies, "CompanyID", "Name"))<br />
+        Product Image: <input asp-for="ProductImage" /><br />
+        <span asp-validation-for="ProductImage" class="text-danger"></span><br />
+        Length:  <input min="1" type="number" asp-for="Length" /> <br />
+        <span asp-validation-for="Length" class="text-danger"></span><br />
+        Wires no:  <input min="1" type="number" asp-for="WiresNo" /> <br />
+        <span asp-validation-for="WiresNo" class="text-danger"></span><br />
+        <button type="submit">Add</button>
+    </form>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+}

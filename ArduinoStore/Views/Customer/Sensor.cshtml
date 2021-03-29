@@ -1,0 +1,53 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model CustomerSensorModel
+@{
+    <p>
+        <a href="\cart"><img src="~/images/button_view-cart.png" /></a>
+        <a href="\order"><img src="~/images/button_order-history.png" /></a>
+    </p>
+    @for (int i = 0; i < Model.Sensors.Count; i++)
+    {
+        AddSensorModel sensor = Model.Sensors[i];
+        <div style="border-style: solid;display:flex">
+            <div style="display:inline-block">
+                <img width="300" height="200" src="@sensor.ProductImage" />
+            </div>
+            <div style="display:inline-block">
+                <div>
+                    Company: @sensor.CompanyName
+                </div>
+                <div>
+                    Model: @sensor.Model
+                </div>
+                <div>
+                    Price: @sensor.Price
+                </div>
+                <div>
+                    Type: @sensor.Type
+                </div>
+                <div>
+                    Voltage: @sensor.Voltage
+                </div>
+                <div>
+                    Digital Pin: @sensor.DigitalPin
+                </div>
+                <div>
+                    Analog Pin: @sensor.AnalogPin
+                </div>
+                <div>
+                    <button type="button" id="btnAdd" onclick="AddToCart(@sensor.ProductID, '@sensor.CompanyName', '@sensor.Model', @sensor.Price, '@sensor.ProductImage')">Add to cart</button>
+                </div>
+            </div>
+        </div>
+    }
+
+    <script>
+        function AddToCart(productId, companyName, model, price, productImage) {
+            $.post('/customer/add', { productId: productId, companyName: companyName, model: model, price: price, productImage }).done(function (response) {
+                alert("Product added to cart");
+            });
+        }
+    </script>
+}

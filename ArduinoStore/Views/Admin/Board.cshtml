@@ -1,0 +1,34 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model AddBoardModel
+@{
+    <p>
+        Add board
+    </p>
+    <form asp-controller="Admin" asp-action="Board" method="post">
+        Price:  <input min="1" step="0.01" type="number" asp-for="Price" /> <br />
+        <span asp-validation-for="Price" class="text-danger"></span><br />
+        Model: <input asp-for="Model" /><br />
+        <span asp-validation-for="Model" class="text-danger"></span><br />
+        Company: @Html.DropDownListFor(m => m.CompanyID,
+new SelectList(Model.Companies, "CompanyID", "Name"))<br />
+        ProductImage: <input asp-for="ProductImage" /><br />
+        <span asp-validation-for="ProductImage" class="text-danger"></span><br />
+        Supply voltage:  <input min="1" type="number" step="0.01" asp-for="SupplyVoltage" /> <br />
+        <span asp-validation-for="SupplyVoltage" class="text-danger"></span><br />
+        Digital Pins:  <input min="1" type="number" asp-for="DigitalPins" /> <br />
+        <span asp-validation-for="DigitalPins" class="text-danger"></span><br />
+        Analog Pins:  <input min="1" type="number" asp-for="AnalogPins" /> <br />
+        <span asp-validation-for="AnalogPins" class="text-danger"></span><br />
+        Flash Memory:  <input min="1" type="number" step="0.01" asp-for="FlashMemory" /> <br />
+        <span asp-validation-for="FlashMemory" class="text-danger"></span><br />
+        Frequency:  <input min="0.01" type="number" step="0.01" asp-for="Frequency" /> <br />
+        <span asp-validation-for="Frequency" class="text-danger"></span><br />
+        <button type="submit">Add</button>
+    </form>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+}

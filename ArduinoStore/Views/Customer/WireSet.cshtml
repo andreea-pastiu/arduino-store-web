@@ -1,0 +1,47 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model CustomerWireSetModel
+@{
+    <p>
+        <a href="\cart"><img src="~/images/button_view-cart.png" /></a>
+        <a href="\order"><img src="~/images/button_order-history.png" /></a>
+    </p>
+    @for (int i = 0; i < Model.WireSets.Count; i++)
+    {
+        AddWireSetModel wireSet = Model.WireSets[i];
+        <div style="border-style: solid;display:flex">
+            <div style="display:inline-block">
+                <img width="300" height="200" src="@wireSet.ProductImage" />
+            </div>
+            <div style="display:inline-block">
+                <div>
+                    Company: @wireSet.CompanyName
+                </div>
+                <div>
+                    Model: @wireSet.Model
+                </div>
+                <div>
+                    Price: @wireSet.Price
+                </div>
+                <div>
+                    Length: @wireSet.Length
+                </div>
+                <div>
+                    Wires no: @wireSet.WiresNo
+                </div>
+                <div>
+                    <button type="button" id="btnAdd" onclick="AddToCart(@wireSet.ProductID, '@wireSet.CompanyName', '@wireSet.Model', @wireSet.Price, '@wireSet.ProductImage')">Add to cart</button>
+                </div>
+            </div>
+        </div>
+    }
+
+    <script>
+        function AddToCart(productId, companyName, model, price, productImage) {
+            $.post('/customer/add', { productId: productId, companyName: companyName, model: model, price: price, productImage }).done(function (response) {
+                alert("Product added to cart");
+            });
+        }
+    </script>
+}

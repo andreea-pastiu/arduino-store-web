@@ -1,0 +1,50 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model CustomerLEDModel
+@{
+    <p>
+        <a href="\cart"><img src="~/images/button_view-cart.png" /></a>
+        <a href="\order"><img src="~/images/button_order-history.png" /></a>
+    </p>
+    @for (int i = 0; i < Model.LEDs.Count; i++)
+    {
+        AddLEDModel led = Model.LEDs[i];
+        <div style="border-style: solid;display:flex">
+            <div style="display:inline-block">
+                <img width="300" height="200" src="@led.ProductImage" />
+            </div>
+            <div style="display:inline-block">
+                <div>
+                    Company: @led.CompanyName
+                </div>
+                <div>
+                    Model: @led.Model
+                </div>
+                <div>
+                    Price: @led.Price
+                </div>
+                <div>
+                    Color: @led.Color
+                </div>
+                <div>
+                    Diameter: @led.Diameter
+                </div>
+                <div>
+                    Current: @led.Current
+                </div>
+                <div>
+                    <button type="button" id="btnAdd" onclick="AddToCart(@led.ProductID, '@led.CompanyName', '@led.Model', @led.Price, '@led.ProductImage')">Add to cart</button>
+                </div>
+            </div>
+        </div>
+    }
+
+    <script>
+        function AddToCart(productId, companyName, model, price, productImage) {
+            $.post('/customer/add', { productId: productId, companyName: companyName, model: model, price: price, productImage }).done(function (response) {
+                alert("Product added to cart");
+            });
+        }
+    </script>
+}

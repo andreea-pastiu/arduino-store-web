@@ -1,0 +1,10 @@
+﻿@model LoginModel
+
+<h2>Login</h2>
+
+<form asp-controller="Login" asp-action="Index" method="post">
+    Username:  <input asp-for="Username" /> <br />
+    Password: <input type="password" asp-for="Password" /><br />
+    <button type="submit">Login</button>
+</form>
+

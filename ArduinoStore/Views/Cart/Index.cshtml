@@ -1,0 +1,44 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model CartModel
+@{
+    <table>
+        <tr>
+            <th></th>
+            <th>Company</th>
+            <th>Model</th>
+            <th>Price</th>
+            <th>Quantity</th>
+        </tr>
+        @for (int i = 0; i < Model.Products.Count; i++)
+        {
+            ProductModel product = Model.Products[i];
+            <tr>
+                <td><img width="100" height="100" src="@product.ProductImage" /></td>
+                <td>@product.CompanyName</td>
+                <td>@product.Model</td>
+                <td>@product.Price</td>
+                <td>@product.CartCount</td>
+            </tr>
+        }
+    </table>
+    <p>Address: <input id="address" asp-for="Address" /></p>
+    <p>Delivery fee: <label>@Model.DeliveryFee</label></p>
+    <p>Total: <label>@Model.Total</label></p>
+    <p><button id="btnFinish" onclick="FinishOrder(@Model.Total)">Finish order</button></p>
+    <br />
+    <script>
+        function FinishOrder(total) {
+            address = document.getElementById("address").value;
+            if (address == null || address.length == 0) {
+                alert("Please fill in the address");
+            }
+            else {
+                $.post('/cart/finish', { total: total, address: address }).done(function (response) {
+                    window.location.href = '/order'; 
+                });
+            }
+        }
+    </script>
+}
